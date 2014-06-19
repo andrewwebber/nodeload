@@ -47,11 +47,12 @@ function printItem(name, val, padLength) {
 
 var testStart;
 var host = options.get('host');
-var test = nl.run({
+var testOptions = {
     name: host,
     host: options.get('host'),
     port: options.get('port'),
     requestGenerator: options.get('requestGenerator'),
+    requestLoop: options.get('requestLoop'),
     method: options.get('method'),
     path: options.get('path'),
     requestData: options.get('requestData'),
@@ -60,7 +61,8 @@ var test = nl.run({
     timeLimit: options.get('timeLimit'),
     targetRps: options.get('targetRps'),
     stats: ['latency', 'result-codes', 'request-bytes', 'response-bytes']
-});
+};
+var test = nl.run(testOptions);
 
 test.on('start', function(tests) { testStart = new Date(); });
 test.on('update', function(interval, stats) {
